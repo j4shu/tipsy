@@ -3,7 +3,7 @@ use std::io::{self, Write};
 fn main() {
     let total = read_f64("Total:");
     let tax = read_f64("Tax:");
-    let subtotal = total - tax;
+    let subtotal = round_to_cent(total - tax);
     println!("Subtotal: {subtotal}");
 
     let min_total = (subtotal * 1.15_f64).ceil() as u64;
@@ -11,7 +11,7 @@ fn main() {
 
     println!("{:<10} {:<10} {:<10}", "Tip %", "Tip", "Total");
     for total in min_total..=max_total {
-        let tip = total as f64 - subtotal;
+        let tip = round_to_cent(total as f64 - subtotal);
         let percentage = tip / subtotal * 100.0;
         println!(
             "{:<10} {:<10} ${total}.00",
@@ -21,6 +21,12 @@ fn main() {
     }
 }
 
+/// Rounds a value to the nearest cent to avoid floating-point artifacts.
+fn round_to_cent(value: f64) -> f64 {
+    (value * 100.0).round() / 100.0
+}
+
+/// Reads a floating-point number from user input with validation.
 fn read_f64(prompt: &str) -> f64 {
     let mut input = String::new();
     loop {
