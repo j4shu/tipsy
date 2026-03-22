@@ -1,5 +1,6 @@
-use comfy_table::Table;
 use std::io::{self, Write};
+
+use comfy_table::Table;
 
 fn main() {
     // let total = read_f64("Total:");
