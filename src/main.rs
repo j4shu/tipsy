@@ -41,8 +41,9 @@ fn main() {
 }
 
 fn read_f64(prompt: &str) -> f64 {
+    let mut input = String::new();
     loop {
-        let mut input = String::new();
+        input.clear();
 
         // use print! instead of println! to keep the prompt and input on the same line
         print!("{prompt} ");
